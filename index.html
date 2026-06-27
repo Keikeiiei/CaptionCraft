@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,21 +11,49 @@
 
 <body>
 
-<div id="app">
+    <div id="app">
+        <header class="home-header">
+            <div class="brand">
+                <img src="assets/images/icon.png" class="home-logo" alt="CaptionCraft">
+                <div>
+                    <h1>CaptionCraft</h1>
+                    <p class="tagline">Create subtitles beautifully.</p>
+                </div>
+            </div>
 
-    <h1>🎬 CaptionCraft</h1>
+            <button class="settings-button" id="settingsButton">⚙</button>
+        </header>
 
-    <p>Version 0.1</p>
+        <main class="home">
+            <section class="project-grid" id="projectGrid"></section>
+        </main>
 
-    <button>🆕 新しいプロジェクト</button>
+        <div class="quick-actions">
+            <button class="quick-plus" id="newProjectButton">＋</button>
+            <button class="quick-import" id="importButton">📥 インポート</button>
+        </div>
 
-    <button>📂 プロジェクトを開く</button>
+        <input type="file" id="videoInput" accept="video/*" hidden>
+        <input type="file" id="projectInput" accept=".json,.ccproj" hidden>
+        <div class="modal" id="newProjectModal">
+            <div class="modal-box">
+                <h2>新しいプロジェクト</h2>
 
-    <button>⚙ 設定</button>
+                <button id="chooseFileButton">📁 動画ファイルから</button>
 
-</div>
+                <div class="or">または</div>
 
-<script src="app.js"></script>
+                <input id="youtubeUrlInput" class="url-input" placeholder="YouTube URLを貼る">
+
+                <button id="createYoutubeButton">🔗 YouTubeリンクから</button>
+
+                <button class="close-button" id="closeModalButton">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 
 </body>
+
 </html>
