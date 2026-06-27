@@ -76,200 +76,200 @@ function getYoutubeId(url) {
     }
 }
 
-function parseTime(text){
-  const s = String(text).trim().replace(",", ".");
-  if(!s) return 0;
+function parseTime(text) {
+    const s = String(text).trim().replace(",", ".");
+    if (!s) return 0;
 
-  const parts = s.split(":").map(Number);
+    const parts = s.split(":").map(Number);
 
-  if(parts.length === 2){
-    return parts[0] * 60 + parts[1];
-  }
+    if (parts.length === 2) {
+        return parts[0] * 60 + parts[1];
+    }
 
-  if(parts.length === 3){
-    return parts[0] * 3600 + parts[1] * 60 + parts[2];
-  }
+    if (parts.length === 3) {
+        return parts[0] * 3600 + parts[1] * 60 + parts[2];
+    }
 
-  return Number(s) || 0;
+    return Number(s) || 0;
 }
 
-function formatTime(sec){
-  sec = Math.max(0, sec || 0);
+function formatTime(sec) {
+    sec = Math.max(0, sec || 0);
 
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  const ms = Math.floor((sec - Math.floor(sec)) * 1000);
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    const ms = Math.floor((sec - Math.floor(sec)) * 1000);
 
-  return String(m).padStart(2,"0") + ":" +
-         String(s).padStart(2,"0") + "." +
-         String(ms).padStart(3,"0");
+    return String(m).padStart(2, "0") + ":" +
+        String(s).padStart(2, "0") + "." +
+        String(ms).padStart(3, "0");
 }
 
-function formatSrtTime(t){
-  return formatTime(t).replace(".", ",");
+function formatSrtTime(t) {
+    return formatTime(t).replace(".", ",");
 }
 
-function getCurrentEditorTime(){
-  if(localVideoElement){
-    return localVideoElement.currentTime || 0;
-  }
+function getCurrentEditorTime() {
+    if (localVideoElement) {
+        return localVideoElement.currentTime || 0;
+    }
 
-  return parseTime(currentTimeLabel.textContent);
+    return parseTime(currentTimeLabel.textContent);
 }
 
-function renderSubtitles(){
-  subtitleList.innerHTML = "";
+function renderSubtitles() {
+    subtitleList.innerHTML = "";
 
-  if(!currentProject){
-    return;
-  }
+    if (!currentProject) {
+        return;
+    }
 
-  if(!currentProject.subtitleData){
-    currentProject.subtitleData = [];
-  }
+    if (!currentProject.subtitleData) {
+        currentProject.subtitleData = [];
+    }
 
-  currentProject.subtitleData.forEach((sub, index) => {
-    const div = document.createElement("div");
-    div.className = "subtitle-item" + (index === selectedSubtitleIndex ? " selected" : "");
+    currentProject.subtitleData.forEach((sub, index) => {
+        const div = document.createElement("div");
+        div.className = "subtitle-item" + (index === selectedSubtitleIndex ? " selected" : "");
 
-    div.innerHTML = `
+        div.innerHTML = `
       <div class="subtitle-time">${formatTime(sub.start)} → ${formatTime(sub.end)}</div>
       <div class="subtitle-text">${sub.text}</div>
     `;
 
-    div.addEventListener("click", () => {
-      selectedSubtitleIndex = index;
-      subtitleText.value = sub.text;
-      startTime.value = formatTime(sub.start);
-      endTime.value = formatTime(sub.end);
-      renderSubtitles();
-    });
+        div.addEventListener("click", () => {
+            selectedSubtitleIndex = index;
+            subtitleText.value = sub.text;
+            startTime.value = formatTime(sub.start);
+            endTime.value = formatTime(sub.end);
+            renderSubtitles();
+        });
 
-    subtitleList.appendChild(div);
-  });
+        subtitleList.appendChild(div);
+    });
 }
 
-function renderTimeline(){
-  timeline.innerHTML = "";
+function renderTimeline() {
+    timeline.innerHTML = "";
 
-  if(!currentProject || !currentProject.subtitleData){
-    return;
-  }
+    if (!currentProject || !currentProject.subtitleData) {
+        return;
+    }
 
-  const maxEnd = Math.max(10, ...currentProject.subtitleData.map(s => s.end));
+    const maxEnd = Math.max(10, ...currentProject.subtitleData.map(s => s.end));
 
-  currentProject.subtitleData.forEach((sub) => {
-    const bar = document.createElement("div");
-    bar.className = "timeline-sub";
+    currentProject.subtitleData.forEach((sub) => {
+        const bar = document.createElement("div");
+        bar.className = "timeline-sub";
 
-    bar.style.left = (sub.start / maxEnd * 100) + "%";
-    bar.style.width = Math.max((sub.end - sub.start) / maxEnd * 100, 4) + "%";
-    bar.textContent = sub.text;
+        bar.style.left = (sub.start / maxEnd * 100) + "%";
+        bar.style.width = Math.max((sub.end - sub.start) / maxEnd * 100, 4) + "%";
+        bar.textContent = sub.text;
 
-    timeline.appendChild(bar);
-  });
+        timeline.appendChild(bar);
+    });
 }
 
 addSubtitleButton.addEventListener("click", () => {
-  if(!currentProject) return;
+    if (!currentProject) return;
 
-  const text = subtitleText.value.trim();
-  const start = parseTime(startTime.value || "00:00.000");
-  const end = parseTime(endTime.value || "00:02.000");
+    const text = subtitleText.value.trim();
+    const start = parseTime(startTime.value || "00:00.000");
+    const end = parseTime(endTime.value || "00:02.000");
 
-  if(!text){
-    alert("字幕テキストを入れてね！");
-    return;
-  }
+    if (!text) {
+        alert("字幕テキストを入れてね！");
+        return;
+    }
 
-  if(end <= start){
-    alert("終了時間は開始時間より後にしてね！");
-    return;
-  }
+    if (end <= start) {
+        alert("終了時間は開始時間より後にしてね！");
+        return;
+    }
 
-  if(!currentProject.subtitleData){
-    currentProject.subtitleData = [];
-  }
+    if (!currentProject.subtitleData) {
+        currentProject.subtitleData = [];
+    }
 
-  currentProject.subtitleData.push({
-    text,
-    start,
-    end
-  });
+    currentProject.subtitleData.push({
+        text,
+        start,
+        end
+    });
 
-  currentProject.subtitleData.sort((a,b) => a.start - b.start);
+    currentProject.subtitleData.sort((a, b) => a.start - b.start);
 
-  subtitleText.value = "";
-  selectedSubtitleIndex = null;
+    subtitleText.value = "";
+    selectedSubtitleIndex = null;
 
-  renderSubtitles();
-  renderTimeline();
+    renderSubtitles();
+    renderTimeline();
 });
 
 deleteSubtitleButton.addEventListener("click", () => {
-  if(!currentProject || selectedSubtitleIndex === null) return;
+    if (!currentProject || selectedSubtitleIndex === null) return;
 
-  currentProject.subtitleData.splice(selectedSubtitleIndex, 1);
-  selectedSubtitleIndex = null;
+    currentProject.subtitleData.splice(selectedSubtitleIndex, 1);
+    selectedSubtitleIndex = null;
 
-  subtitleText.value = "";
-  startTime.value = "";
-  endTime.value = "";
+    subtitleText.value = "";
+    startTime.value = "";
+    endTime.value = "";
 
-  renderSubtitles();
-  renderTimeline();
+    renderSubtitles();
+    renderTimeline();
 });
 
 setStartButton.addEventListener("click", () => {
-  startTime.value = formatTime(getCurrentEditorTime());
+    startTime.value = formatTime(getCurrentEditorTime());
 });
 
 setEndButton.addEventListener("click", () => {
-  endTime.value = formatTime(getCurrentEditorTime());
+    endTime.value = formatTime(getCurrentEditorTime());
 });
 
 playPauseButton.addEventListener("click", () => {
-  if(!localVideoElement){
-    alert("YouTubeはプレイヤー内の再生ボタンを使ってね！");
-    return;
-  }
+    if (!localVideoElement) {
+        alert("YouTubeはプレイヤー内の再生ボタンを使ってね！");
+        return;
+    }
 
-  if(localVideoElement.paused){
-    localVideoElement.play();
-  }else{
-    localVideoElement.pause();
-  }
+    if (localVideoElement.paused) {
+        localVideoElement.play();
+    } else {
+        localVideoElement.pause();
+    }
 });
 
 setInterval(() => {
-  const time = getCurrentEditorTime();
-  currentTimeLabel.textContent = formatTime(time);
+    const time = getCurrentEditorTime();
+    currentTimeLabel.textContent = formatTime(time);
 
-  if(!currentProject || !currentProject.subtitleData){
-    liveSubtitle.textContent = "";
-    return;
-  }
+    if (!currentProject || !currentProject.subtitleData) {
+        liveSubtitle.textContent = "";
+        return;
+    }
 
-  const active = currentProject.subtitleData.find(sub => {
-    return time >= sub.start && time <= sub.end;
-  });
+    const active = currentProject.subtitleData.find(sub => {
+        return time >= sub.start && time <= sub.end;
+    });
 
-  liveSubtitle.textContent = active ? active.text : "";
+    liveSubtitle.textContent = active ? active.text : "";
 }, 100);
 
 exportVttButton.addEventListener("click", () => {
-  if(!currentProject || !currentProject.subtitleData) return;
+    if (!currentProject || !currentProject.subtitleData) return;
 
-  let out = "WEBVTT\n\n";
+    let out = "WEBVTT\n\n";
 
-  currentProject.subtitleData.forEach((sub, index) => {
-    out += `${index + 1}\n`;
-    out += `${formatTime(sub.start)} --> ${formatTime(sub.end)}\n`;
-    out += `${sub.text}\n\n`;
-  });
+    currentProject.subtitleData.forEach((sub, index) => {
+        out += `${index + 1}\n`;
+        out += `${formatTime(sub.start)} --> ${formatTime(sub.end)}\n`;
+        out += `${sub.text}\n\n`;
+    });
 
-  navigator.clipboard.writeText(out);
-  alert("VTTをコピーしたよ！");
+    navigator.clipboard.writeText(out);
+    alert("VTTをコピーしたよ！");
 });
 
 function renderProjects() {
@@ -328,7 +328,7 @@ function createThumbnailFromVideo(file) {
         projects.unshift({
             name: file.name,
             date: "今日",
-            duration: "読み込み中",
+            duration: formatTime(video.duration),
             subtitles: 0,
             thumb: canvas.toDataURL("image/png"),
             type: "file",
@@ -337,7 +337,6 @@ function createThumbnailFromVideo(file) {
         });
 
         renderProjects();
-        URL.revokeObjectURL(url);
     });
 }
 
