@@ -424,10 +424,10 @@ function openEditor(project) {
     `;
     } else if (project.videoUrl) {
         videoArea.innerHTML = `
-      <video id="localVideo" controls>
-        <source src="${project.videoUrl}">
-      </video>
-    `;
+          <video id="localVideo" controls playsinline>
+            <source src="${project.videoUrl}" type="video/mp4">
+          </video>
+        `;
         localVideoElement = document.getElementById("localVideo");
     } else {
         videoArea.innerHTML = "ローカル動画プレビュー";
