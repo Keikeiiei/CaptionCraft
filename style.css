@@ -1,6 +1,11 @@
-@font-face{
-  font-family:"Bananaslip";
-  src:url("assets/fonts/Bananaslip.otf");
+@font-face {
+    font-family: "Bananaslip";
+    src: url("assets/fonts/Bananaslip.otf");
+}
+
+@font-face {
+    font-family: "MPLUS";
+    src: url("assets/fonts/MPLUSRounded1c-Regular.ttf");
 }
 
 :root{
@@ -20,7 +25,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:"Bananaslip", "M PLUS Rounded 1c", sans-serif;
+  font-family: "MPLUS", sans-serif;
 }
 
 button{
@@ -59,6 +64,8 @@ h1{
   color:var(--primary);
   font-size:64px;
   letter-spacing:1px;
+  font-family:"Bananaslip", sans-serif;
+  font-weight:normal;
 }
 
 .tagline{
@@ -144,6 +151,8 @@ h1{
   margin:0;
   font-size:28px;
   color:var(--text);
+  font-family:"Bananaslip", sans-serif;
+  font-weight:normal;
 }
 
 .project-info p{
@@ -326,4 +335,496 @@ h1{
 .close-button{
   background:#3A3A40 !important;
   color:white !important;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.editor-screen{
+  min-height:100vh;
+  padding:28px;
+  background:var(--bg);
+  color:white;
+}
+
+.editor-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.editor-header button{
+  border:none;
+  border-radius:16px;
+  background:var(--panel);
+  color:white;
+  padding:12px 18px;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.editor-header h2{
+  color:var(--primary);
+  font-size:34px;
+  margin:0;
+}
+
+.editor-layout{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:24px;
+}
+
+.preview-panel,
+.subtitle-panel,
+.timeline-panel{
+  background:var(--panel);
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.preview-panel{
+  padding:20px;
+}
+
+.video-area{
+  aspect-ratio:16/9;
+  border-radius:22px;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--sub);
+  font-size:28px;
+}
+
+.subtitle-panel{
+  padding:20px;
+}
+
+.subtitle-panel h3{
+  margin-top:0;
+  color:var(--primary);
+  font-size:28px;
+}
+
+.subtitle-item{
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:16px;
+  background:#18181B;
+  color:white;
+}
+
+.timeline-panel{
+  margin-top:24px;
+  padding:20px;
+}
+
+.timeline-bar{
+  height:38px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--primary),#6655FF);
+}
+
+.video-area iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  border-radius:22px;
+}
+
+.subtitle-panel textarea{
+  width:100%;
+  min-height:90px;
+  resize:vertical;
+  border:none;
+  border-radius:18px;
+  padding:14px;
+  background:#18181B;
+  color:white;
+  font-family:inherit;
+  font-size:18px;
+}
+
+.time-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.time-row input{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:12px;
+  background:#18181B;
+  color:white;
+  font-family:inherit;
+  font-size:16px;
+}
+
+#addSubtitleButton,
+#exportSrtButton{
+  width:100%;
+  margin-top:12px;
+  border:none;
+  border-radius:16px;
+  padding:14px;
+  background:var(--primary);
+  color:#101014;
+  font-size:20px;
+  cursor:pointer;
+}
+
+#exportSrtButton{
+  background:#3A3A40;
+  color:white;
+}
+
+.subtitle-item{
+  cursor:pointer;
+}
+
+.subtitle-time{
+  color:var(--primary);
+  font-size:15px;
+  margin-bottom:4px;
+}
+
+.subtitle-text{
+  font-size:18px;
+}
+
+.player-tools{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:14px;
+}
+
+.player-tools button,
+.time-row button,
+#addSubtitleButton,
+#deleteSubtitleButton,
+.export-row button{
+  border:none;
+  border-radius:14px;
+  padding:12px 14px;
+  background:var(--primary);
+  color:#101014;
+  font-family:inherit;
+  font-size:18px;
+  cursor:pointer;
+}
+
+#currentTimeLabel{
+  color:var(--primary);
+  font-size:24px;
+}
+
+.subtitle-panel textarea{
+  width:100%;
+  min-height:90px;
+  resize:vertical;
+  border:none;
+  border-radius:18px;
+  padding:14px;
+  background:#18181B;
+  color:white;
+  font-family:inherit;
+  font-size:18px;
+}
+
+.time-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  margin-top:12px;
+}
+
+.time-row input{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:12px;
+  background:#18181B;
+  color:white;
+  font-family:inherit;
+  font-size:16px;
+}
+
+#addSubtitleButton,
+#deleteSubtitleButton{
+  width:100%;
+  margin-top:12px;
+}
+
+#deleteSubtitleButton{
+  background:#3A3A40;
+  color:white;
+}
+
+.export-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.subtitle-item.selected{
+  outline:2px solid var(--primary);
+}
+
+.subtitle-time{
+  color:var(--primary);
+  font-size:15px;
+  margin-bottom:4px;
+}
+
+.subtitle-text{
+  font-size:18px;
+}
+
+.timeline{
+  position:relative;
+  height:70px;
+  border-radius:20px;
+  background:#18181B;
+  overflow:hidden;
+}
+
+.timeline-sub{
+  position:absolute;
+  top:18px;
+  height:34px;
+  border-radius:999px;
+  background:var(--primary);
+  color:#101014;
+  font-size:13px;
+  padding:8px;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.editor-grid{
+  min-height:100vh;
+  padding:28px;
+  display:grid;
+  grid-template-columns:2.3fr 1fr;
+  grid-template-rows:1fr 230px;
+  gap:22px;
+  background:var(--bg);
+}
+
+.editor-video-panel,
+.editor-side-panel,
+.editor-timeline-panel,
+.big-save-button{
+  background:var(--panel);
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.editor-video-panel{
+  position:relative;
+  padding:22px;
+}
+
+.back-button{
+  position:absolute;
+  left:18px;
+  top:18px;
+  z-index:5;
+  border:none;
+  border-radius:999px;
+  background:rgba(0,0,0,0.45);
+  color:white;
+  padding:10px 16px;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.video-area{
+  width:100%;
+  height:100%;
+  aspect-ratio:auto;
+  border-radius:22px;
+  background:#111;
+  overflow:hidden;
+  position:relative;
+}
+
+.video-area iframe,
+.video-area video{
+  width:100%;
+  height:100%;
+  border:0;
+  object-fit:contain;
+}
+
+.live-subtitle{
+  position:absolute;
+  left:50%;
+  bottom:48px;
+  transform:translateX(-50%);
+  max-width:85%;
+  padding:10px 18px;
+  border-radius:14px;
+  background:rgba(0,0,0,0.55);
+  color:white;
+  font-size:30px;
+  text-align:center;
+  text-shadow:0 2px 5px black;
+  pointer-events:none;
+}
+
+.editor-side-panel{
+  padding:24px;
+  overflow:auto;
+}
+
+.editor-side-panel h2{
+  color:var(--primary);
+  margin:0 0 20px;
+  font-size:34px;
+}
+
+.editor-side-panel h3{
+  color:var(--primary);
+  margin:24px 0 12px;
+}
+
+.editor-side-panel label{
+  display:block;
+  margin-top:14px;
+  margin-bottom:6px;
+  color:var(--sub);
+}
+
+.editor-side-panel textarea,
+.editor-side-panel input{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  padding:12px;
+  background:#18181B;
+  color:white;
+  font-family:inherit;
+  font-size:17px;
+}
+
+.editor-side-panel textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.side-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+}
+
+.side-row button,
+#addSubtitleButton,
+#deleteSubtitleButton,
+.export-row button{
+  border:none;
+  border-radius:14px;
+  padding:12px 14px;
+  font-family:inherit;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.side-row button,
+#addSubtitleButton,
+.export-row button{
+  background:var(--primary);
+  color:#101014;
+}
+
+#addSubtitleButton,
+#deleteSubtitleButton{
+  width:100%;
+  margin-top:12px;
+}
+
+#deleteSubtitleButton{
+  background:#3A3A40;
+  color:white;
+}
+
+.export-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.editor-timeline-panel{
+  padding:22px;
+}
+
+.player-tools{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.player-tools button{
+  border:none;
+  border-radius:16px;
+  background:var(--primary);
+  color:#101014;
+  padding:12px 18px;
+  font-family:inherit;
+  font-size:18px;
+  cursor:pointer;
+}
+
+#currentTimeLabel{
+  color:var(--primary);
+  font-size:24px;
+}
+
+.timeline{
+  position:relative;
+  height:120px;
+  border-radius:22px;
+  background:#18181B;
+  overflow:hidden;
+}
+
+.timeline-sub{
+  position:absolute;
+  top:42px;
+  height:38px;
+  border-radius:999px;
+  background:var(--primary);
+  color:#101014;
+  padding:9px 12px;
+  font-size:14px;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.big-save-button{
+  border:none;
+  background:var(--primary);
+  color:#101014;
+  font-family:"Bananaslip";
+  font-weight:normal;
+  font-size:52px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.big-save-button:hover{
+  filter:brightness(1.08);
+  transform:scale(1.02);
 }

@@ -52,6 +52,65 @@
         </div>
     </div>
 
+    <section id="editorScreen" class="editor-screen hidden">
+        <main class="editor-grid">
+
+            <div class="editor-video-panel">
+                <button id="backHomeButton" class="back-button">←</button>
+
+                <div id="videoArea" class="video-area">
+                    動画プレビュー
+                </div>
+
+                <div id="liveSubtitle" class="live-subtitle"></div>
+            </div>
+
+            <aside class="editor-side-panel">
+                <h2 id="editorTitle">Editor</h2>
+
+                <label>字幕テキスト</label>
+                <textarea id="subtitleText" placeholder="ここに字幕を書く"></textarea>
+
+                <label>開始</label>
+                <div class="side-row">
+                    <input id="startTime" placeholder="00:00.000">
+                    <button id="setStartButton">今</button>
+                </div>
+
+                <label>終了</label>
+                <div class="side-row">
+                    <input id="endTime" placeholder="00:02.000">
+                    <button id="setEndButton">今</button>
+                </div>
+
+                <button id="addSubtitleButton">＋ 字幕追加</button>
+                <button id="deleteSubtitleButton">選択字幕を削除</button>
+
+                <div class="export-row">
+                    <button id="exportSrtButton">SRT</button>
+                    <button id="exportVttButton">VTT</button>
+                </div>
+
+                <h3>字幕一覧</h3>
+                <div id="subtitleList"></div>
+            </aside>
+
+            <section class="editor-timeline-panel">
+                <div class="player-tools">
+                    <button id="playPauseButton">▶ / ⏸</button>
+                    <span id="currentTimeLabel">00:00.000</span>
+                </div>
+
+                <div id="timeline" class="timeline"></div>
+            </section>
+
+            <button id="saveProjectButton" class="big-save-button">
+                保存
+            </button>
+
+        </main>
+    </section>
+
     <script src="app.js"></script>
 
 </body>
