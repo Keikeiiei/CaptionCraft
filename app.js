@@ -29,6 +29,7 @@ const exportSrtButton = document.getElementById("exportSrtButton");
 const exportVttButton = document.getElementById("exportVttButton");
 const subtitleList = document.getElementById("subtitleList");
 const timeline = document.getElementById("timeline");
+const saveProjectButton = document.getElementById("saveProjectButton");
 
 const liveSubtitle = document.getElementById("liveSubtitle");
 
@@ -272,6 +273,40 @@ exportVttButton.addEventListener("click", () => {
     alert("VTTをコピーしたよ！");
 });
 
+function saveCurrentProject(){
+  if(!currentProject){
+    alert("保存するプロジェクトがありません！");
+    return;
+  }
+
+  const saveData = {
+    app: "CaptionCraft",
+    version: "0.1",
+    name: currentProject.name,
+    date: currentProject.date,
+    duration: currentProject.duration,
+    subtitles: currentProject.subtitles,
+    type: currentProject.type,
+    youtubeId: currentProject.youtubeId || null,
+    subtitleData: currentProject.subtitleData || []
+  };
+
+  const json = JSON.stringify(saveData, null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${currentProject.name}.ccproj`;
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+saveProjectButton.addEventListener("click", () => {
+  saveCurrentProject();
+});
+
 function renderProjects() {
     projectGrid.innerHTML = "";
 
@@ -388,9 +423,37 @@ importButton.addEventListener("click", () => {
 });
 
 projectInput.addEventListener("change", () => {
-    const file = projectInput.files[0];
-    if (!file) return;
-    alert(`${file.name} をインポートする予定！`);
+  const file = projectInput.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+
+      const project = {
+        name: data.name || file.name,
+        date: "今日",
+        duration: data.duration || "不明",
+        subtitles: data.subtitleData ? data.subtitleData.length : 0,
+        type: data.type || "file",
+        youtubeId: data.youtubeId || null,
+        thumb: null,
+        videoUrl: null,
+        subtitleData: data.subtitleData || []
+      };
+
+      projects.unshift(project);
+      renderProjects();
+
+      alert("プロジェクトを読み込みました！");
+    }catch(e){
+      alert("プロジェクトファイルを読み込めませんでした！");
+    }
+  };
+
+  reader.readAsText(file);
 });
 
 backHomeButton.addEventListener("click", () => {
